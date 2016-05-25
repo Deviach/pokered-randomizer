@@ -5181,9 +5181,10 @@ MetronomePickMove: ; 3e348 (f:6348)
 	ld de,W_ENEMYMOVENUM
 	ld hl,wEnemySelectedMove
 ; loop to pick a random number in the range [1, $a5) to be the move used by Metronome
-    ld a, [RandomizerFlags]
-    bit 2, a
-    jr z, .newMovesPickMoveLoop
+    ;ld a, [RandomizerFlags]
+    ;bit 2, a
+    ;jr z, .newMovesPickMoveLoop
+	jr .newMovesPickMoveLoop
 .pickMoveLoop
 	call BattleRandom
 	and a

@@ -5439,7 +5439,7 @@ INCLUDE "engine/game_corner_slots.asm"
 SECTION "bankE",ROMX,BANK[$E]
 
     inc_section "data/moves.asm"
-BaseStats: INCLUDE "data/base_stats.asm"
+
 CryData:
 ;INCLUDE "data/cries.asm"
 INCLUDE "engine/battle/e.asm"
@@ -6659,6 +6659,9 @@ BeachHouse_GFX:
 BeachHouse_Block:
 	INCBIN "gfx/blocksets/beachhouse.bst"
 ENDC
+
+SECTION "bank30",ROMX,BANK[$30]
+BaseStats: INCLUDE "data/base_stats.asm"
 
 SECTION "bank34",ROMX,BANK[$34]
 SpriteBank1::

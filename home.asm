@@ -87,9 +87,10 @@ INCLUDE "home/copy.asm"
 LoadHLMoves:
     ld hl, Moves
     push af
-    ld a, [RandomizerFlags]
-    bit 2, a
-    jr nz, .gen6
+   ;ld a, [RandomizerFlags]
+   ; bit 2, a ;
+   ; jr nz, .gen6
+   jr .gen6
     pop af
     ret
 .gen6
@@ -97,12 +98,6 @@ LoadHLMoves:
     ld hl, Gen6Moves
     ret
 
-
-SECTION "Randomizer Flags", ROM0 [$0ff]
-RandomizerFlags::
-    db $00  ; bit 0: instant text
-            ; bit 1: debug
-            ; bit 2: gen 6 moves
     
 SECTION "Entry", ROM0 [$100]
 
@@ -2612,7 +2607,7 @@ GetSavedEndBattleTextPointer:: ; 33b7 (0:33b7)
 	ret
 
 TrainerEndBattleText:: ; 33cf (0:33cf)
-	TX_FAR _TrainerNameText
+	;TX_FAR _TrainerNameText
 	db $08
 	call GetSavedEndBattleTextPointer
 	call TextCommandProcessor
@@ -3611,9 +3606,9 @@ Divide:: ; 38b9 (0:38b9)
 ; screen unless the player presses the A/B button or the delay is turned off
 ; through the [wd730] or [wd358] flags.
 PrintLetterDelay:: ; 38d3 (0:38d3)
-    ld a, [RandomizerFlags]
-    bit 0, a
-    ret nz
+    ;ld a, [RandomizerFlags]
+    ;bit 0, a
+    ;ret nz
     
 	ld a,[wd730]
 	bit 6,a
@@ -4825,3 +4820,16 @@ TextPredefs::
 	add_tx_pre BookOrSculptureText                  ; 40
 	add_tx_pre ElevatorText                         ; 41
 	add_tx_pre PokemonStuffText                     ; 42
+	
+SetCustomName:
+; INPUTS: hl = pointer to name
+; OUTPUTS: trainer name stored in wCurTrainerName, hl points to byte immediately after name
+	ld de, wCurTrainerName
+.loop
+	ld a, [hli]
+	ld [de],a
+	inc de
+	cp "@"
+	ret z
+	jr .loop
+

@@ -2444,3 +2444,7 @@ wSelectorTop:: ds 1
 wSelectorCur:: ds 1
 wChannelSelector:: ds 1
 wChannelSelectorSwitches:: ds 8
+
+wCurTrainerName::
+; used to store individual trainer names
+	ds 13
