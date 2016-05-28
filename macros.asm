@@ -451,6 +451,17 @@ WEST_MAP_CONNECTION: MACRO
 	dw wOverworldMap + 6 + (2 * \2) ; window (position of the upper left block after entring the map)
 ENDM
 
+tmlearn: MACRO
+x = 0
+	rept _NARG
+if \1 != 0
+x = x | (1 << ((\1 - 1) % 8))
+endc
+	shift
+	endr
+	db x
+ENDM
+
 inc_section: MACRO
     SECTION \1, ROMX
     include \1
